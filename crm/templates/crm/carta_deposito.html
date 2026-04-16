@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Carta de Depósito Direto</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #0056b3;
+            margin: 0;
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+        .content {
+            margin-bottom: 40px;
+        }
+        .content h2 {
+            font-size: 18px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-top: 30px;
+            color: #444;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        table th, table td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        table th {
+            width: 35%;
+            color: #555;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #d9534f;
+            font-size: 16px;
+        }
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        .bank-details {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-left: 4px solid #0056b3;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Carta de Depósito Direto</h1>
+    </div>
+
+    <div class="content">
+        <p>Prezado(a) <strong>{{ cliente.nome }}</strong>,</p>
+        <p>Este documento formaliza a solicitação de pagamento via depósito direto referente ao serviço/plano contratado, conforme os detalhes abaixo:</p>
+
+        <h2>Dados do Cliente</h2>
+        <table>
+            <tr>
+                <th>Nome / Razão Social:</th>
+                <td>{{ cliente.nome }}</td>
+            </tr>
+            <tr>
+                <th>Documento (CPF/CNPJ):</th>
+                <td>{{ cliente.documento }}</td>
+            </tr>
+            <tr>
+                <th>Telefone:</th>
+                <td>{{ cliente.telefone }}</td>
+            </tr>
+        </table>
+
+        <h2>Detalhes da Contratação</h2>
+        <table>
+            <tr>
+                <th>Plano Contratado:</th>
+                <td>{{ plano.nome }}</td>
+            </tr>
+            <tr>
+                <th>Data de Início:</th>
+                <td>{{ plano_cliente.data_inicio|date:"d/m/Y" }}</td>
+            </tr>
+            <tr>
+                <th>Valor a ser depositado:</th>
+                <td class="highlight">R$ {{ valor }}</td>
+            </tr>
+        </table>
+
+        <div class="bank-details">
+            <h2>Dados Bancários para Depósito/Transferência</h2>
+            <p>Por favor, realize a transferência para a conta abaixo e envie o comprovante para o nosso setor financeiro.</p>
+            <ul>
+                <li><strong>Banco:</strong> 000 - Nome do Banco</li>
+                <li><strong>Agência:</strong> 0000</li>
+                <li><strong>Conta Corrente:</strong> 00000-0</li>
+                <li><strong>Chave PIX (CNPJ/Email/Telefone):</strong> 00.000.000/0001-00</li>
+                <li><strong>Favorecido:</strong> Linkoo CRM LTDA</li>
+            </ul>
+        </div>
+        
+        <p style="margin-top: 30px;">Agradecemos a sua preferência.</p>
+    </div>
+
+    <div class="footer">
+        <p>Documento gerado em {% now "d/m/Y H:i" %} pelo sistema Linkoo CRM.</p>
+    </div>
+
+</body>
+</html>
