@@ -4,7 +4,7 @@ from django.template.loader import render_to_string
 from django.contrib import messages
 from xhtml2pdf import pisa
 
-from .models import Cliente, Plano, PlanoCliente
+from .models import Cliente, Plano, PlanoCliente,Servico
 
 @admin.register(Cliente)
 class ClienteAdmin(admin.ModelAdmin):
@@ -14,15 +14,23 @@ class ClienteAdmin(admin.ModelAdmin):
     list_editable = ('contrato_assinado', 'ativo')
     fieldsets = (
         ('Informações Pessoais', {
-            'fields': ('tipo', 'documento', 'nome', 'email', 'telefone')
+            'fields': ('tipo', 'documento', 'nome')
+        }),
+        ('Contato', {
+            'fields': ('email', 'telefone')
         }),
         ('Endereço', {
-            'fields': ('endereco',)
+            'fields': ('cep','endereco','cidade','bairro')
         }),
         ('Status', {
             'fields': ('data_inicio', 'contrato_assinado', 'ativo')
         }),
     )
+
+@admin.register(Servico)
+class ServicoAdmin(admin.ModelAdmin):
+    list_display = ('nome',)
+
 
 @admin.register(Plano)
 class PlanoAdmin(admin.ModelAdmin):
