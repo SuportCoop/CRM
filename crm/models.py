@@ -41,7 +41,7 @@ class Plano(models.Model):
         ('DEV', 'DESENVOLVIMENTO'),
         ('LP', 'LANDING PAGE'),
     )
-    nome = models.CharField('Plano',max_length=20)
+    nome = models.CharField('Plano',max_length=50)
     descricao = models.TextField('Descrição', blank=True)
     servico = models.ManyToManyField(Servico,default='ZAP')
     valor = models.DecimalField('Valor Base', max_digits=10, decimal_places=2)
@@ -66,6 +66,7 @@ class PlanoCliente(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='planos_contratados')
     plano = models.ForeignKey(Plano, on_delete=models.RESTRICT, related_name='clientes_vinculados')
     data_inicio = models.DateField('Data de Início', default=timezone.now)
+    data_vencimento = models.IntegerField('Data de Vencimento', default=timezone.now)
     status = models.CharField('Status', max_length=20, choices=STATUS_CHOICES, default='pendente')
     valor_cobrado = models.DecimalField(
         'Valor Cobrado', max_digits=10, decimal_places=2, null=True, blank=True,
