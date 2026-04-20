@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crm',
+    'pwa',
 ]
 
 MIDDLEWARE = [
@@ -40,7 +41,7 @@ ROOT_URLCONF = 'crm_core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], # MUITO IMPORTANTE
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -100,20 +101,24 @@ DATE_INPUT_FORMATS = ['%d/%m/%Y', '%Y-%m-%d']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
+STATIC_URL = '/static/'
 
-STATIC_URL = 'static/'
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"), # Se sua pasta static estiver na raiz do projeto
-# ]
-# STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+# Esta pasta 'static' é a que aparece na sua foto da estrutura do projeto
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+# Esta pasta 'deploy_files' NÃO deve existir ainda. 
+# O Django vai criar ela sozinho depois.
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-import os
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 JAZZMIN_SETTINGS = {
     "site_title": "CodeFlow CRM",
@@ -131,3 +136,32 @@ JAZZMIN_SETTINGS = {
 JAZZMIN_UI_TWEAKS = {
     "theme": "lumen",
 }
+
+
+# Caminho para onde os arquivos do PWA serão gerados
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/js', 'serviceworker.js')
+
+PWA_APP_NAME = 'CRM CodeFlow'
+PWA_APP_DESCRIPTION = "Esse projeto é feito para gerenciar o clientes"
+PWA_APP_THEME_COLOR = '#000000' # Cor da barra de tarefas/status
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone' # Faz abrir em janela própria, sem barra de navegador
+PWA_APP_SCOPE = '/admin/'
+PWA_APP_START_URL = '/admin/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+
+# Ícones: Garanta que esse arquivo exista em static/images/
+PWA_APP_ICONS = [
+    {
+        'src': '/static/IMG/icon-512.png',
+        'sizes': '512x512'
+    }
+]
+
+PWA_APP_ICONS_APPLE = [
+    {
+        'src': '/static/images/icon-512.png',
+        'sizes': '512x512'
+    }
+]
