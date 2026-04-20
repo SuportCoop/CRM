@@ -90,7 +90,7 @@ class PlanoClienteAdmin(admin.ModelAdmin):
     #         self.message_user(request, f"Erro ao gerar PDF: {str(e)}", level=messages.ERROR)
     
 
-    @admin.action(description='Abrir Carta para Impressão')
+    @admin.action(description='Gerar Fatura')
     def gerar_carta_deposito(self, request, queryset):
         if queryset.count() > 1:
             self.message_user(request, "Selecione apenas um.", level=messages.ERROR)

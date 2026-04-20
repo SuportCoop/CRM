@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <title>Carta de Depósito Direto</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+        body {
+            background-color: #f0f0f0;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Botão de imprimir - esconde na impressão */
+        .no-print {
+            margin-bottom: 20px;
+            text-decoration: none;
+            background: #ff007a;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        /* Container A4 com a Imagem de Fundo */
+        .document-container {
+            width: 210mm;
+            min-height: 297mm;
+            /* AJUSTE AQUI O CAMINHO DA IMAGEM */
+            background-image: url("{% static 'IMG/Fundo_Termo.png' %}");
+            background-size: 100% 100% ;
+            background-position: center;
+            background-repeat: no-repeat;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            {% comment %} color: white; {% endcomment %}
+            box-sizing: border-box;
+            
+            /* Recuos para não sobrepor o design da lateral e topo */
+            padding: 100px 60px 100px 130px; 
+            position: relative;
+        }
+
+        h1 {
+            font-size: 26px;
+            color: #ff007a;
+            border-bottom: 2px solid #ff007a;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 16px;
+            color: #b057ff;
+            text-transform: uppercase;
+            margin-top: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th { color: #ccc; width: 40%; }
+        .highlight { color: #ff007a; font-weight: bold; font-size: 18px; }
+
+        .bank-details {
+            background: rgba(176, 87, 255, 0.1);
+            padding: 20px;
+            border-left: 4px solid #b057ff;
+            border-radius: 4px;
+            margin-top: 20px;
+            margin-left: 26px;
+        }
+
+        .bank-details ul { list-style: none; padding: 0; }
+        .bank-details li { margin-bottom: 8px; }
+
+        .footer {
+            position: absolute;
+            bottom: 60px;
+            left: 130px;
+            font-size: 12px;
+            color: #888;
+        }
+
+        @media print {
+            body { background: none; padding: 0; }
+            .no-print { display: none; }
+            .document-container { box-shadow: none; -webkit-print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="#" onclick="window.print();" class="no-print">🖨️ CLIQUE PARA IMPRIMIR / SALVAR PDF</a>
+
+    <div class="document-container">
+        
+        <div class="header">
+            <h1>Carta de Depósito Direto</h1>
+        </div>
+
+        <div class="content">
+            <p>Prezado(a) <strong>{{ cliente.nome }}</strong>,</p>
+            <p>Este documento formaliza a solicitação de pagamento via depósito direto referente ao serviço/plano contratado, conforme os detalhes abaixo:</p>
+
+            <h2>Dados do Cliente</h2>
+            <table>
+                <tr>
+                    <th>Nome / Razão Social:</th>
+                    <td>{{ cliente.nome }}</td>
+                </tr>
+                <tr>
+                    <th>Documento (CPF/CNPJ):</th>
+                    <td>{{ cliente.documento }}</td>
+                </tr>
+                <tr>
+                    <th>Telefone:</th>
+                    <td>{{ cliente.telefone }}</td>
+                </tr>
+            </table>
+
+            <h2>Detalhes da Contratação</h2>
+            <table>
+                <tr>
+                    <th>Plano Contratado:</th>
+                    <td>{{ plano.descricao }}</td>
+                </tr>
+                <tr>
+                    <th>Data de Início:</th>
+                    <td>{{ plano_cliente.data_inicio|date:'d/m/Y' }}</td>
+                </tr>
+                <tr>
+                    <th>Valor a ser depositado:</th>
+                    <td class="highlight">R$ {{ valor }}</td>
+                </tr>
+            </table>
+
+            <div class="bank-details">
+                <h2>Dados Bancários para Depósito</h2>
+                <p>Por favor, realize a transferência e envie o comprovante para o nosso setor financeiro.</p>
+                <ul>
+                    <li><strong>Banco:</strong> 0001 - Nubank</li>
+                    <li><strong>Agência:</strong> 0001</li>
+                    <li><strong>Conta Corrente:</strong> 95592724-8</li>
+                    <li><strong>Chave PIX (Telefone):</strong> 11 971498691</li>
+                    <li><strong>Favorecido:</strong> Caio Cezar de Farias</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 30px;">Agradecemos a sua preferência.</p>
+        </div>
+
+        <div class="footer">
+            <p>Documento gerado em {% now 'd/m/Y H:i' %} pelo sistema CodeFlow CRM.</p>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -9,4 +9,4 @@ def gerar_carta_pdf_view(request, pk):
         'plano': plano_cliente.plano,
         'valor': plano_cliente.get_valor(),
     }
-    return render(request, 'crm/carta_pdf_print.html', context)
+    return render(request, 'crm/carta_pdf_print copy.html', context)

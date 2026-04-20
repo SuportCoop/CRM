@@ -12,7 +12,7 @@
       }
       body {
         /* Caminho da imagem */
-        background-image: url("{% static 'IMG/Fundo_Termo.png' %}");
+        {% comment %} background-image: url("{% static 'IMG/Fundo_Termo.png' %}"); {% endcomment %}
         /* Configurações de exibição */
         background-size: 100% 100%; /* Força a imagem a preencher a folha A4 exatamente */
         background-repeat: no-repeat;
@@ -122,7 +122,7 @@
     <a href="#" onclick="window.print();" class="no-print">🖨️ CLIQUE PARA IMPRIMIR / SALVAR PDF</a>
     <div class="header">
       <h1>Carta de Depósito Direto</h1>
-      <img src="{% static 'IMG/Fundo_Termo.png' %}" alt="" />
+      {% comment %} <img src="{% static 'IMG/Fundo_Termo.png' %}" alt="" /> {% endcomment %}
     </div>
 
     <div class="content">
@@ -191,7 +191,7 @@
 
     <div class="footer">
       <p>
-        Documento gerado em{% now 'd/m/Y H:i' %}pelo sistema CodeFlow CRM.
+        Documento gerado em {% now 'd/m/Y H:i' %}pelo sistema CodeFlow CRM.
       </p>
     </div>
   </body>
