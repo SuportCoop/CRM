@@ -16,18 +16,24 @@ class ClienteAdmin(admin.ModelAdmin):
     list_editable = ('contrato_assinado', 'ativo')
     fieldsets = (
         ('Informações Pessoais', {
-            'fields': ('tipo', 'documento', 'nome')
-        }),
-        ('Contato', {
-            'fields': ('email', 'telefone')
+            'fields': ('tipo', 'documento', 'nome', 'email', 'telefone')
         }),
         ('Endereço', {
-            'fields': ('cep','endereco','cidade','bairro')
+            # Adicione todos os campos aqui para o JS funcionar
+            'fields': (
+                ('cep', 'uf'), # Em uma linha
+                'endereco', 
+                ('numero', 'bairro'), # Em outra linha
+                'cidade',
+            )
         }),
         ('Status', {
             'fields': ('data_inicio', 'contrato_assinado', 'ativo')
         }),
     )
+    
+    class Media:
+        js = ('js/buscar_cep.js',)
 
 @admin.register(Servico)
 class ServicoAdmin(admin.ModelAdmin):

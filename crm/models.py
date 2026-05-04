@@ -12,10 +12,14 @@ class Cliente(models.Model):
     nome = models.CharField('Nome / Razão Social', max_length=200)
     email = models.EmailField('E-mail', blank=True, null=True)
     telefone = models.CharField('Telefone', max_length=20)
+    
+    cep = models.CharField('CEP', max_length=9)
     endereco = models.CharField('Endereço', blank=True , max_length=52) 
-    cidade = models.CharField('Cidade', blank=True , max_length=52) 
-    bairro = models.CharField('Bairro', blank=True , max_length=20) 
-    cep = models.CharField('CEP', blank=True , max_length=20)
+    numero = models.CharField('Número', max_length=20, blank=True)
+    bairro = models.CharField('Bairro', blank=True , max_length=20)
+    cidade = models.CharField('Cidade', blank=True , max_length=52)
+    uf = models.CharField('UF', max_length=2, blank=True)
+    
     data_inicio = models.DateField('Data de Início', default=timezone.now)
     contrato_assinado = models.BooleanField('Contrato Assinado?', default=False)
     ativo = models.BooleanField('Ativo?', default=True)
